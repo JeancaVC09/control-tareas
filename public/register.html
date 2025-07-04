@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Usuario</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a0c8ff, #0056b3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+
+    form {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3);
+      width: 350px;
+      color: #004080;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: 1px;
+      color: #003366;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: 2px solid #a8c6ff;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      color: #003366;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #004080;
+      box-shadow: 0 0 8px #0056b3aa;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #004080;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 14px #003366aa;
+      transition: background-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background-color: #002950;
+      box-shadow: 0 8px 20px #001f40cc;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      min-height: 1.4em;
+      user-select: none;
+    }
+
+    .link-container {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #004080;
+      font-weight: 600;
+    }
+
+    .link-container a {
+      color: #002950;
+      text-decoration: none;
+      margin-left: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .link-container a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .app-title {
+  position: absolute;
+  top: 40px;
+  font-size: 2.4rem;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+  </style>
+</head>
+<body>
+
+  <h1 class="app-title">Control de Tareas</h1>
+
+  <form id="registerForm">
+    <h2>Registro de Usuario</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario" required />
+    <input type="password" id="password" placeholder="Contraseña" required minlength="6" />
+    <select id="role" required>
+      <option value="" disabled selected>Selecciona un rol</option>
+      <option value="user">Usuario</option>
+      <option value="admin">Administrador</option>
+    </select>
+    <button type="submit">Registrar</button>
+    <div class="message" id="message"></div>
+    <div class="link-container">
+      ¿Ya tienes cuenta?
+      <a href="login.html">Inicia sesión</a>
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = '';
+
+      const data = {
+        username: form.username.value.trim(),
+        password: form.password.value,
+        role: form.role.value
+      };
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if(res.ok) {
+          message.style.color = '#198754'; // verde
+          message.textContent = 'Usuario registrado con éxito. Ahora puedes iniciar sesión.';
+          form.reset();
+        } else {
+          message.style.color = '#ffc107'; // amarillo
+          message.textContent = result.message || 'Error en el registro.';
+        }
+      } catch (error) {
+        message.style.color = '#dc3545'; // rojo
+        message.textContent = 'Error de conexión al servidor.';
+      }
+    });
+  </script>
+
+</body>
+</html>

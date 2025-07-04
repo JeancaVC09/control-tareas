@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a0c8ff, #0056b3);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .login-container {
+      background: white;
+      padding: 35px 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3);
+      width: 320px;
+      color: #004080;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: #003366;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: 2px solid #a8c6ff;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      color: #003366;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #004080;
+      box-shadow: 0 0 8px #0056b3aa;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      background-color: #004080;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 14px #003366aa;
+      transition: background-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background-color: #002950;
+      box-shadow: 0 8px 20px #001f40cc;
+    }
+
+    .msg {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1rem;
+      min-height: 1.4em;
+      user-select: none;
+      color: #dc3545; /* rojo para error */
+    }
+
+    .link-container {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #004080;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .link-container a {
+      color: #002950;
+      text-decoration: none;
+      margin-left: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .link-container a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .app-title {
+      position: absolute;
+      top: 40px;
+      font-size: 2.4rem;
+      color: white;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1 class="app-title">Control de Tareas</h1>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="username" placeholder="Usuario" />
+    <input type="password" id="password" placeholder="Contraseña" />
+    <button onclick="login()">Entrar</button>
+    <div class="msg" id="msg"></div>
+    <div class="link-container">
+      ¿No tienes cuenta?
+      <a href="register.html">Regístrate</a>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
